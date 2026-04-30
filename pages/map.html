@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>全国PTA実態マップ｜PTA適正化推進委員会</title>
+  <meta name="description" content="全国の教育委員会回答とPTA関連資料を、自治体単位で整理・可視化するページです。公開要約を中心に、会費徴収・個人情報・教職員関与などの論点を確認できます。">
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    .map-layout{display:grid;grid-template-columns:1fr 390px;gap:22px;align-items:start}.map-panel,.detail-panel{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 10px 30px rgba(15,23,42,.05)}.map-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:16px}.pref-cell{border:1px solid var(--line);background:#f8fafc;border-radius:12px;padding:10px;min-height:68px;cursor:pointer;text-align:left;transition:.18s}.pref-cell:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(15,23,42,.08)}.pref-cell.active{outline:3px solid #bfdbfe;border-color:#2563eb;background:#eff6ff}.pref-name{font-weight:900;color:var(--navy);font-size:13px}.pref-count{font-size:12px;color:#475569}.pref-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}.mini-dot{width:8px;height:8px;border-radius:50%;display:inline-block;background:#94a3b8}.mini-dot.fee{background:#b45309}.mini-dot.privacy{background:#2563eb}.mini-dot.staff{background:#047857}.mini-dot.join{background:#7c3aed}.detail-title{margin:0 0 8px;color:var(--navy);font-size:22px}.detail-meta{color:#64748b;font-size:13px;margin-bottom:12px}.record-list{display:grid;gap:12px}.record-card{border:1px solid var(--line);border-radius:16px;padding:16px;background:#fff}.record-card h3{font-size:17px;margin:0 0 6px;color:var(--navy)}.record-card p{margin:8px 0}.category{display:inline-block;border-radius:999px;background:#e0f2fe;color:#075985;font-size:12px;font-weight:900;padding:4px 10px}.counter-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0}.counter{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px}.counter b{display:block;font-size:26px;color:var(--navy)}.counter span{font-size:13px;color:#64748b}.filter-row{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}.filter-row input,.filter-row select{padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#fff}.note-small{font-size:13px;color:#64748b}.empty{padding:24px;border:1px dashed #cbd5e1;border-radius:16px;background:#f8fafc;color:#475569}@media(max-width:980px){.map-layout{grid-template-columns:1fr}.map-grid{grid-template-columns:repeat(3,1fr)}.counter-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.map-grid{grid-template-columns:repeat(2,1fr)}}
+  </style>
+</head>
+<body>
+<header class="site-header"><div class="container header-inner"><a class="brand" href="../index.html"><span class="brand-title">PTA適正化推進委員会</span><span class="brand-sub">Evidence-based PTA Compliance Research</span></a><button class="nav-toggle">MENU</button><nav class="nav"><a href="../index.html">HOME</a><a href="map.html">全国マップ</a><a href="database.html">全国DB</a><a href="fee.html">会費徴収</a><a href="privacy.html">個人情報</a><a href="staff.html">教職員関与</a><a href="legal.html">法的論点</a><a href="contact.html">概要</a></nav></div></header>
+<main>
+<section class="page-title"><div class="container"><h1>全国PTA実態マップ</h1><p class="lead">教育委員会回答とPTA関連資料を自治体単位で整理し、学校とPTAの公私境界に関する論点を可視化します。</p></div></section>
+<section class="section"><div class="container">
+  <div class="notice"><b>公開方針：</b>このページは、メール本文全文をそのまま掲載するものではありません。担当者名・メールアドレス・電話番号等を除き、公開用要約と論点タグに整理して表示します。個別自治体の違法性を断定するものではなく、確認可能な回答内容を分類するための入口です。</div>
+  <div class="counter-grid" id="counters"><div class="counter"><b>0</b><span>登録回答</span></div><div class="counter"><b>0</b><span>都道府県</span></div><div class="counter"><b>0</b><span>自治体</span></div><div class="counter"><b>0</b><span>タグ</span></div></div>
+  <div class="filter-row"><input id="q" type="search" placeholder="自治体名・要約・タグで検索"><select id="tagFilter"><option value="">すべてのタグ</option></select><select id="prefFilter"><option value="">すべての都道府県</option></select><button class="btn secondary" id="resetBtn" type="button">絞り込み解除</button></div>
+  <div class="map-layout">
+    <section class="map-panel"><h2>自治体単位マップ</h2><p class="note-small">現在は公開用要約データから都道府県別に集計しています。今後、全国PTA資料館の現場資料レイヤーを追加します。</p><div class="map-grid" id="prefGrid"></div></section>
+    <aside class="detail-panel"><h2 class="detail-title" id="detailTitle">自治体を選択</h2><div class="detail-meta" id="detailMeta">地図または一覧から選択してください。</div><div id="detailBody" class="empty">教育委員会回答、PTA資料、会費徴収、個人情報、教職員関与などの要約がここに表示されます。</div></aside>
+  </div>
+  <section class="section"><h2>回答一覧</h2><div id="recordList" class="record-list"></div></section>
+</div></section>
+</main>
+<footer class="site-footer"><div class="container footer-inner"><div><b>PTA適正化推進委員会</b><p class="small">一次資料に基づき、学校とPTAの公私分離を検証します。</p></div><div><a href="database.html">全国DB</a><br><a href="legal.html">法的論点</a></div></div></footer>
+<script src="../assets/app.js"></script>
+<script>
+const DATA_URL='../data/boe-map-sample.json';
+let allRecords=[];let filtered=[];let activePref='';
+const prefGrid=document.getElementById('prefGrid'),recordList=document.getElementById('recordList'),detailTitle=document.getElementById('detailTitle'),detailMeta=document.getElementById('detailMeta'),detailBody=document.getElementById('detailBody'),q=document.getElementById('q'),tagFilter=document.getElementById('tagFilter'),prefFilter=document.getElementById('prefFilter');
+function esc(s){return String(s||'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
+function unique(arr){return [...new Set(arr.filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b),'ja'));}
+function hasTag(r,t){return (r.tags||[]).includes(t)}
+function dotClass(tag){if(tag.includes('会費')||tag.includes('徴収'))return 'fee';if(tag.includes('個人情報'))return 'privacy';if(tag.includes('教職員')||tag.includes('職専免')||tag.includes('校務'))return 'staff';if(tag.includes('入会')||tag.includes('意思')||tag.includes('みなし'))return 'join';return '';}
+function applyFilters(){const term=q.value.trim().toLowerCase();const tag=tagFilter.value;const pref=prefFilter.value||activePref;filtered=allRecords.filter(r=>{const hay=[r.prefecture,r.municipality,r.category,r.summary,(r.tags||[]).join(' ')].join(' ').toLowerCase();return (!term||hay.includes(term))&&(!tag||hasTag(r,tag))&&(!pref||r.prefecture===pref);});renderAll();}
+function renderCounters(){const prefs=unique(allRecords.map(r=>r.prefecture));const munis=unique(allRecords.map(r=>r.municipality));const tags=unique(allRecords.flatMap(r=>r.tags||[]));document.getElementById('counters').innerHTML=`<div class="counter"><b>${allRecords.length}</b><span>登録回答</span></div><div class="counter"><b>${prefs.length}</b><span>都道府県</span></div><div class="counter"><b>${munis.length}</b><span>自治体</span></div><div class="counter"><b>${tags.length}</b><span>タグ</span></div>`;}
+function renderFilters(){unique(allRecords.flatMap(r=>r.tags||[])).forEach(t=>tagFilter.insertAdjacentHTML('beforeend',`<option value="${esc(t)}">${esc(t)}</option>`));unique(allRecords.map(r=>r.prefecture)).forEach(p=>prefFilter.insertAdjacentHTML('beforeend',`<option value="${esc(p)}">${esc(p)}</option>`));}
+function renderPrefGrid(){const prefs=unique(allRecords.map(r=>r.prefecture));prefGrid.innerHTML=prefs.map(p=>{const rs=allRecords.filter(r=>r.prefecture===p);const dots=unique(rs.flatMap(r=>r.tags||[])).slice(0,5).map(t=>`<span class="mini-dot ${dotClass(t)}" title="${esc(t)}"></span>`).join('');return `<button class="pref-cell ${activePref===p?'active':''}" data-pref="${esc(p)}"><div class="pref-name">${esc(p)}</div><div class="pref-count">${rs.length}件</div><div class="pref-tags">${dots}</div></button>`}).join('');document.querySelectorAll('.pref-cell').forEach(btn=>btn.onclick=()=>{activePref=activePref===btn.dataset.pref?'':btn.dataset.pref;prefFilter.value=activePref;applyFilters();});}
+function recordHtml(r){return `<article class="record-card"><span class="category">${esc(r.category)}</span><h3>${esc(r.prefecture)} ${esc(r.municipality)}</h3><div class="detail-meta">${esc(r.date)} ／ ${esc(r.source_type)} ／ ${esc(r.status)}</div><p>${esc(r.summary)}</p><div class="tag-list">${(r.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div><p><button class="btn secondary" type="button" data-id="${esc(r.id)}">詳細表示</button></p></article>`}
+function renderRecords(){recordList.innerHTML=filtered.length?filtered.map(recordHtml).join(''):'<div class="empty">該当する回答はありません。</div>';recordList.querySelectorAll('button[data-id]').forEach(b=>b.onclick=()=>showDetail(allRecords.find(r=>r.id===b.dataset.id)));}
+function showDetail(r){if(!r)return;detailTitle.textContent=`${r.prefecture} ${r.municipality}`;detailMeta.textContent=`${r.date} ／ ${r.category}`;detailBody.className='';detailBody.innerHTML=`<p>${esc(r.summary)}</p><div class="tag-list">${(r.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div><div class="notice" style="margin-top:14px">原文は内部DBで管理し、公開時は個人名・連絡先等を除いた要約または加工済み原文を掲載します。</div>`;}
+function renderAll(){renderCounters();renderPrefGrid();renderRecords();if(filtered.length&&!detailBody.dataset.touched){showDetail(filtered[0]);detailBody.dataset.touched='1';}}
+fetch(DATA_URL).then(r=>r.json()).then(data=>{allRecords=data;filtered=data;renderFilters();renderAll();}).catch(e=>{recordList.innerHTML='<div class="empty">データを読み込めませんでした。</div>';console.error(e)});
+q.addEventListener('input',applyFilters);tagFilter.addEventListener('change',applyFilters);prefFilter.addEventListener('change',()=>{activePref=prefFilter.value;applyFilters();});document.getElementById('resetBtn').onclick=()=>{q.value='';tagFilter.value='';prefFilter.value='';activePref='';filtered=allRecords;delete detailBody.dataset.touched;renderAll();};
+</script>
+</body>
+</html>
